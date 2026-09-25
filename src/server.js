@@ -32,13 +32,13 @@ app.use(
 
 // Список усіх нотатків
 app.get('/notes', (req, res) => {
-  res.status(200).json([{ message: 'Retrieved all notes' }]);
+  res.status(200).json({ message: 'Retrieved all notes' });
 });
 
 // Конкретна нотатка за id
 app.get('/notes/:noteId', (req, res) => {
-  const { id_param } = req.params;
-  res.status(200).json({ message: `Retrieved note with ID: ${id_param}` });
+  const { noteId } = req.params;
+  res.status(200).json({ message: `Retrieved note with ID: ${noteId}` });
 });
 
 //Tестовий маршрут для імітації виникнення помилки:
