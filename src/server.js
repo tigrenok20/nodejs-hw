@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import { errors } from 'celebrate';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
@@ -16,6 +17,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use(notesRoutes);
+
+// Validation errors from celebrate must be handled before the general error handler.
+app.use(errors());
 
 // 404 — якщо маршрут не знайдено
 app.use(notFoundHandler);
