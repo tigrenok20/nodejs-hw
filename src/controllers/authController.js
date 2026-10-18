@@ -49,7 +49,7 @@ export const loginUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-export const logout = async (req, res) => {
+export const logoutUser = async (req, res) => {
   const { sessionId } = req.cookies;
 
   if (sessionId) {
@@ -63,7 +63,7 @@ export const logout = async (req, res) => {
   res.status(204).send();
 };
 
-export const refreshSession = async (req, res) => {
+export const refreshUserSession = async (req, res) => {
   const { sessionId, refreshToken } = req.cookies;
 
   if (!sessionId || !refreshToken) {
