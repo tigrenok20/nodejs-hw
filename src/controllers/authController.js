@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    throw createHttpError(400, 'Email in use!');
+    throw createHttpError(400, 'Email in use');
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,6 +36,11 @@ export const loginUser = async (req, res) => {
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
     throw createHttpError(401, 'Invalid credentials');
+  }
+
+  const existingSession = await Session.findOne({ userId: user._id });
+  if (existingSession) {
+    await existingSession.deleteOne();
   }
 
   const newSession = await createSession(user._id);
@@ -89,5 +94,5 @@ export const refreshSession = async (req, res) => {
   const newSession = await createSession(session.userId);
   setSessionCookies(res, newSession);
 
-  res.status(200).json({ message: 'Session refreshed!' });
+  res.status(200).json({ message: 'Session refreshed' });
 };

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { Session } from '../models/session.js';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../utils/constants.js';
+import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/time.js';
 
 export const createSession = async (userId) => {
   return Session.create({
