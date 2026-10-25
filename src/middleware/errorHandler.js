@@ -1,7 +1,12 @@
 import { HttpError } from 'http-errors';
+import multer from 'multer';
 
 export const errorHandler = (err, req, res, next) => {
   console.error('Error Middleware:', err);
+
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ message: err.message });
+  }
 
   // Якщо помилка створена через http-errors
   if (err instanceof HttpError) {
